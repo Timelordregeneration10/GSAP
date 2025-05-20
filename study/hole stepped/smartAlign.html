@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /* transform: translateX(-50px);
+        transform: translateY(-50px); */
+        transform: translate(-50px, -50px);
+        /* GSAP 会自动计算当前translate偏移量，若不为一半，则用新的覆盖，若为一半，则和新的共存，以保留居中效果，详情见esm\CSSPlugin.js搜索xPercent */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+  </body>
+  <script type="module">
+    import { gsap } from "../../esm/index.js";
+    setTimeout(() => {
+        gsap.to(".box", { x: 200 });
+      //   gsap.from(".box", { x: -200 });
+      //   gsap.fromTo(".box", { x: -200 }, { x: 200 });
+      // gsap.set(".box", { x: 200 });
+    }, 500);
+  </script>
+</html>
