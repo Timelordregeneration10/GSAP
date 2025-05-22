@@ -9,23 +9,23 @@
         width: 100px;
         height: 100px;
         background-color: green;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+      }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(0, 68, 128);
       }
     </style>
   </head>
   <body>
     <div class="box"></div>
+    <div class="box2"></div>
   </body>
   <script type="module">
-    import { gsap } from "../esm/index.js";
+    import { gsap } from "../../esm/index.js";
     setTimeout(() => {
-        gsap.to(".box", { x: 200 });
-      //   gsap.from(".box", { x: -200 });
-      //   gsap.fromTo(".box", { x: -200 }, { x: 200 });
-      // gsap.set(".box", { x: 200 });
+        gsap.to(".box", { x: "50vw", y: "50vh", duration: 1, ease: "bounce.out" });
+        gsap.to(".box2", { x: "50vw", y: "50vh", duration: 1, ease: "elastic.out" });
     }, 500);
   </script>
 </html>

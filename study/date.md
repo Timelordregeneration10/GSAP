@@ -8,3 +8,8 @@
     - detail: 最简单的使用方法，在html里通过esm/cdn来使用gsap，如果需要在react中使用，需要用@gsap/react的usegsap钩子，且有些坑，之后用的时候详细学一下，然后又被gsap的丝滑滚动吸住，历经千辛万苦终于知道了body的特殊性，也就是fix不阻止body滚动，借此契机把之前的横向滚动原理给搞清楚了，再把kilalabest的stikcy的bug修了，坑爹的overflow-x-hidden阻止我的sticky🤬
     - abstract: 学习gsap最基本使用；领悟gsap丝滑滚动原理；彻悟sticky；修复kilalabest中sticky相关
     - tomorrow: 学习gsap使用
+- 5.21: yasumi
+- 5.22:
+    - detail: 总览了一下GSAP里learn和docs里的东西，基本没什么新东西，大部分都知道怎么实现，有几个印象深刻的值得深入一下，首先是受限于transition只能几个基本属性和三次贝塞尔曲线，gsap的tween确实有更多的timingfunction，比如bounce；其次是splitText，这是我少数不知道实现原理的东西，之后看看；最后是observer，看上去是靠滚轮事件的deltaY实现的，可以用这个来做详情页面的列表展示？；看了jiejoe近期的gsap测评视频，被安利了scrollTrigger插件，说是比observer写起来简单，不用手动计算，可以作为之后的一个尝试方向。先把GSAP的cheatsheet网页保存在了本地，就是玩儿。阻尼滚动很轻松就实现了，"ease-[cubic-bezier(0.33,1,0.33,1)] duration-1000"真神，但是阻尼滚动加横向滚动结果一晚上的研究证实确定除了用lenis无其他解，因为阻尼滚动一般实现都需要fixed固定视窗的transform，这样内容就没办法又fixed相对屏幕，但是lenis也有移动端适配问题和拉网页滚动条无效问题，而自己写的阻尼效果因为内容都在fixed里面，如果有新的fixed元素需要放在当前fixed外层，因为当前fixed有transform属性了，也就是如果要给我现有的页面加阻尼滚动，必须所有用了fixed的东西都提到外面，不存在说简单给kilalalayout加个阻尼滚动那就所有页面都能用，因为那样的话所有页面内使用fixed都会有问题，不过好像可以页面用了fixed那就加个白名单？但是还需要获取高度，但这样的话重新加载又有问题，还是算了。然后想起来kilalabest的sticky其实可以三条整个包个sticky，这样就没有叠上去的问题了，顺便把overflow的bug修了。=> 并非无解，横向滚动说白了就是sticky或者fixed模拟的sticky，既然没办法从static突变fixed，那只好退而求其次从一开始就在最外面fixed，然后模拟static
+    - abstract: 总览GSAP，确定后续深入方向；学习easing；实现阻尼滚动；理解阻尼滚动和横向滚动不可兼得；修复kilalabest的bug；最后推翻之前的理解实现阻尼滚动+横向滚动我真是天才（天久鹰央叉腰）
+    - tomorrow: 实现observer，学习scrollTrigger使用，splitText学习使用并理解原理，kilalabest加入阻尼滚动！白名单，fixed，获取高度，全都给我来！

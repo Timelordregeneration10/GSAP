@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+      #content {
+        transition: transform 0.5s cubic-bezier(0.33, 1, 0.33, 1);
+      }
+      .sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #f9e3ff;
+        height: 100vh;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: transform 0.5s cubic-bezier(0.33, 1, 0.33, 1);
+        transform: translate(0px, 100vh);
+      }
+      .sticky-word {
+        flex-shrink: 0;
+        flex-basis: fit-content;
+        height: fit-content;
+        min-height: fit-content;
+      }
+      .sticky-img {
+        flex: 1;
+        position: relative;
+        width: 200vw;
+      }
+      .sticky-img > img {
+        position: absolute;
+        height: 100%;
+        object-fit: cover;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fixed">
+      <div id="content">
+        <h1>RMT</h1>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <img src="https://kilalabest.cn/profile.jpg" alt="profile" />
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <br />
+        <div class="sticky-wapper"></div>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <img src="https://kilalabest.cn/profile.jpg" alt="profile" />
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>rmtyyds rmtyyds</p>
+        <p>end</p>
+      </div>
+    </div>
+    <div class="sticky">
+      <div class="sticky-word">
+        <h2 style="text-align: center">Rem Maji Tenshi</h2>
+        <p style="padding: 20px">
+          Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds
+        </p>
+        <p style="padding: 20px">
+          Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds
+          Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds
+        </p>
+      </div>
+      <div class="sticky-img">
+        <img src="https://kilalabest.cn/profile.jpg" alt="profile" />
+      </div>
+    </div>
+  </body>
+  <script type="module">
+    import { gsap } from "../../esm/index.js";
+    const content = document.getElementById("content");
+    const sticky = document.querySelector(".sticky");
+    const stickyWapper = document.querySelector(".sticky-wapper");
+    const init = () => {
+      stickyWapper.style.height =
+        sticky.scrollWidth - window.innerWidth + window.innerHeight + "px";
+      document.body.style.height = content.scrollHeight + 40 + "px";
+      let firstInto = true;
+      let firstBack = true;
+
+      const handleScroll = function () {
+        const scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        content.style.transform = `translateY(-${scrollTop}px)`;
+        const top = stickyWapper.offsetTop - scrollTop;
+        const bottom =
+          stickyWapper.offsetTop - scrollTop + stickyWapper.scrollHeight;
+        if (top > window.innerHeight) {
+          sticky.style.transform = `translate(0px, ${window.innerHeight}px)`;
+          firstInto = true;
+        } else if (top > 0 && top <= window.innerHeight) {
+          sticky.style.transform = `translate(0px, ${top}px)`;
+          firstInto = true;
+        } else if (top <= 0 && bottom >= window.innerHeight) {
+          if (firstInto) {
+            firstInto = false;
+            sticky.style.transitionDuration = "0.2s";
+            sticky.style.transform = "translate(0px, 0px)";
+            setTimeout(() => {
+              sticky.style.transitionDuration = "0.5s";
+            }, 200);
+          }
+          if (firstBack) {
+            firstBack = false;
+            sticky.style.transitionDuration = "0.2s";
+            sticky.style.transform = `translate(${
+              sticky.scrollWidth - window.innerWidth
+            }px, 0px)`;
+            setTimeout(() => {
+              sticky.style.transitionDuration = "0.5s";
+            }, 200);
+          }
+          sticky.style.transform = `translate(${top}px, 0px)`;
+        } else if (bottom < window.innerHeight && bottom > 0) {
+          firstBack = true;
+          sticky.style.transform = `translate(-${
+            sticky.scrollWidth - window.innerWidth
+          }px, ${bottom - window.innerHeight}px)`;
+        } else {
+          firstBack = true;
+          sticky.style.transform = `translate(-${
+            sticky.scrollWidth - window.innerWidth
+          }px, ${-window.innerHeight}px)`;
+        }
+      };
+      handleScroll();
+
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    };
+    window.onload = function () {
+      let destory = init();
+      window.onresize = function () {
+        destory();
+        destory = init();
+      };
+    };
+  </script>
+</html>
