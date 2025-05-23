@@ -138,6 +138,42 @@
       }
     };
     window.addEventListener("wheel", wheelHandler, { passive: false });
+    let firstTouchClientY = null;
+    const touchHandler = (e) => {
+      e.preventDefault();
+      if (lock) return;
+      if (e.touches.length > 1) return;
+      if (firstTouchClientY === null) {
+        firstTouchClientY = e.touches[0].clientY;
+        return;
+      }
+      lock = true;
+      setTimeout(() => {
+        lock = false;
+      }, 1000);
+      const touch = e.touches[0];
+      const touchY = touch.clientY;
+      const scrollTop = document.documentElement.scrollTop;
+      if (touchY > firstTouchClientY) {
+        window.scrollTo({
+          left: 0,
+          top:
+            (Math.floor(scrollTop / window.innerHeight) + 1) *
+            window.innerHeight,
+          behavior: "smooth",
+        });
+      } else {
+        window.scrollTo({
+          left: 0,
+          top:
+            (Math.ceil(scrollTop / window.innerHeight) - 1) *
+            window.innerHeight,
+          behavior: "smooth",
+        });
+      }
+      firstTouchClientY = null;
+    };
+    window.addEventListener("touchmove", touchHandler, { passive: false });
     const jump = document.querySelectorAll(".jump");
     jump.forEach((item, index) => {
       item.addEventListener("click", () => {
