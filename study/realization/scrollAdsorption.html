@@ -154,7 +154,7 @@
       const touch = e.touches[0];
       const touchY = touch.clientY;
       const scrollTop = document.documentElement.scrollTop;
-      if (touchY > firstTouchClientY) {
+      if (touchY < firstTouchClientY) {
         window.scrollTo({
           left: 0,
           top:
@@ -162,7 +162,7 @@
             window.innerHeight,
           behavior: "smooth",
         });
-      } else {
+      } else if (touchY > firstTouchClientY) {
         window.scrollTo({
           left: 0,
           top:
