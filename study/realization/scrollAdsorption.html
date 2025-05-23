@@ -9,6 +9,7 @@
         scroll-behavior: smooth;
         margin: 0;
         padding: 0;
+        /* overflow: hidden; */
       }
       img {
         width: 200px;
@@ -18,9 +19,25 @@
         height: 100vh;
         display: flex;
         flex-direction: column;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        transition: background-position 1s;
+        background-position: 0px 0%;
       }
       section:nth-child(odd) {
-        background-color: #f9e3ff;
+        background-image: url("https://kilalabest.cn/profile.jpg");
+      }
+      article {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #fbc2ee;
+        mix-blend-mode: lighten;
+      }
+      section:nth-child(even) {
+        background-image: url("https://kilalabest.cn/profile.jpg");
       }
       .jump {
         width: 30px;
@@ -48,12 +65,14 @@
         <img src="https://kilalabest.cn/profile.jpg" alt="profile" />
       </section>
       <section>
-        2
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
+        <article>
+          2
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+        </article>
       </section>
       <section>
         3
@@ -64,14 +83,16 @@
         <p>rmtyyds rmtyyds</p>
       </section>
       <section>
-        4
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <img src="https://kilalabest.cn/profile.jpg" alt="profile" />
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
+        <article>
+          4
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <img src="https://kilalabest.cn/profile.jpg" alt="profile" />
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+        </article>
       </section>
       <section>
         5
@@ -84,13 +105,15 @@
         <p>rmtyyds rmtyyds</p>
       </section>
       <section>
-        6
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>rmtyyds rmtyyds</p>
-        <p>end</p>
+        <article>
+          6
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>rmtyyds rmtyyds</p>
+          <p>end</p>
+        </article>
       </section>
     </div>
     <div
@@ -105,6 +128,71 @@
     </div>
   </body>
   <script>
+    const sections = document.getElementsByTagName("section");
+    const sectionPositionMatrix = [];
+    const initialSectionPositionMatrix = () => {
+      for (let i = 0; i < sections.length; i++) {
+        if (i === 0) sectionPositionMatrix.push(Array(sections.length).fill(0));
+        else {
+          let newArr = [...sectionPositionMatrix[i - 1]];
+          newArr[i - 1] += 10;
+          newArr[i] += 10;
+          sectionPositionMatrix.push(newArr);
+        }
+      }
+    };
+    initialSectionPositionMatrix();
+    const initialIndex = Math.floor(
+      document.documentElement.scrollTop / window.innerHeight
+    );
+    const initialCurrentPosition = () => {
+      for (let i = 0; i < sections.length; i++) {
+        sections[
+          i
+        ].style.backgroundPosition = `0px ${sectionPositionMatrix[initialIndex][i]}%`;
+      }
+    };
+    initialCurrentPosition();
+    let direction = "down";
+    const changePosition = (target) => {
+      if (!target) return;
+      let curPosition = target.style.backgroundPosition;
+      if (curPosition === "") {
+        curPosition = "0px 0%";
+      }
+      const currentYPercent = parseInt(curPosition.split(" ")[1].split("%")[0]);
+      if (direction === "up") {
+        target.style.backgroundPosition =
+          curPosition.split(" ")[0] + " " + (currentYPercent - 10) + "%";
+      } else if (direction === "down") {
+        target.style.backgroundPosition =
+          curPosition.split(" ")[0] + " " + (currentYPercent + 10) + "%";
+      }
+    };
+    function Page() {
+      let currentIndex = Math.floor(
+        document.documentElement.scrollTop / window.innerHeight
+      );
+      Object.defineProperty(this, "currentIndex", {
+        get: function () {
+          return currentIndex;
+        },
+        set: function (newValue) {
+          window.scrollTo({
+            left: 0,
+            top: newValue * window.innerHeight,
+            behavior: "smooth",
+          });
+          changePosition(sections[newValue], direction);
+          changePosition(
+            sections[newValue + (direction === "down" ? -1 : 1)],
+            direction
+          );
+          currentIndex = newValue;
+        },
+      });
+    }
+    const page = new Page();
     let lock = false;
     const wheelHandler = (e) => {
       e.preventDefault();
@@ -114,27 +202,19 @@
         lock = false;
       }, 1000);
       if (e.deltaY > 0) {
-        window.scrollTo({
-          left: 0,
-          top:
-            (Math.floor(
-              document.documentElement.scrollTop / window.innerHeight
-            ) +
-              1) *
-            window.innerHeight,
-          behavior: "smooth",
-        });
-      } else {
-        window.scrollTo({
-          left: 0,
-          top:
-            (Math.ceil(
-              document.documentElement.scrollTop / window.innerHeight
-            ) -
-              1) *
-            window.innerHeight,
-          behavior: "smooth",
-        });
+        direction = "down";
+        const nextIndex =
+          Math.floor(document.documentElement.scrollTop / window.innerHeight) +
+          1;
+        if (nextIndex >= sections.length) return;
+        page.currentIndex = nextIndex;
+      } else if (e.deltaY < 0) {
+        direction = "up";
+        const nextIndex =
+          Math.ceil(document.documentElement.scrollTop / window.innerHeight) -
+          1;
+        if (nextIndex < 0) return;
+        page.currentIndex = nextIndex;
       }
     };
     window.addEventListener("wheel", wheelHandler, { passive: false });
@@ -151,25 +231,21 @@
       setTimeout(() => {
         lock = false;
       }, 1000);
-      const touch = e.touches[0];
-      const touchY = touch.clientY;
-      const scrollTop = document.documentElement.scrollTop;
+      const touchY = e.touches[0].clientY;
       if (touchY < firstTouchClientY) {
-        window.scrollTo({
-          left: 0,
-          top:
-            (Math.floor(scrollTop / window.innerHeight) + 1) *
-            window.innerHeight,
-          behavior: "smooth",
-        });
+        direction = "down";
+        const nextIndex =
+          Math.floor(document.documentElement.scrollTop / window.innerHeight) +
+          1;
+        if (nextIndex >= sections.length) return;
+        page.currentIndex = nextIndex;
       } else if (touchY > firstTouchClientY) {
-        window.scrollTo({
-          left: 0,
-          top:
-            (Math.ceil(scrollTop / window.innerHeight) - 1) *
-            window.innerHeight,
-          behavior: "smooth",
-        });
+        direction = "up";
+        const nextIndex =
+          Math.ceil(document.documentElement.scrollTop / window.innerHeight) -
+          1;
+        if (nextIndex <= 0) return;
+        page.currentIndex = nextIndex;
       }
       firstTouchClientY = null;
     };
@@ -177,25 +253,18 @@
     const jump = document.querySelectorAll(".jump");
     jump.forEach((item, index) => {
       item.addEventListener("click", () => {
-        window.scrollTo({
-          left: 0,
-          top: index * window.innerHeight,
-          behavior: "smooth",
-        });
+        if (index === page.currentIndex) return;
+        direction = index > page.currentIndex ? "down" : "up";
+        page.currentIndex = index;
       });
     });
     window.onresize = function () {
-      window.scrollTo({
-        left: 0,
-        top:
-          Math.round(document.documentElement.scrollTop / window.innerHeight) *
-          window.innerHeight,
-        behavior: "smooth",
-      });
+      const newIndex = Math.floor(
+        document.documentElement.scrollTop / window.innerHeight
+      );
+      if (newIndex === page.currentIndex) return;
+      direction = newIndex > page.currentIndex ? "down" : "up";
+      page.currentIndex = newIndex;
     };
-    // window.addEventListener("scroll", function () {
-    //   const scrollTop = document.documentElement.scrollTop;
-    //   console.log(scrollTop,performance.now());
-    // });
   </script>
 </html>
