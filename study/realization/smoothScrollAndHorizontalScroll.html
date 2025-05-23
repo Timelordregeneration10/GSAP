@@ -42,7 +42,7 @@
       .sticky-img {
         flex: 1;
         position: relative;
-        width: 200vw;
+        width: 400vw;
       }
       .sticky-img > img {
         position: absolute;
@@ -122,6 +122,26 @@
           yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
           yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
           yyds Rem yyds Rem yyds
+          Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds
+          Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds
+          Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds
+          Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds
         </p>
       </div>
       <div class="sticky-img">
@@ -156,28 +176,30 @@
           firstInto = true;
         } else if (top <= 0 && bottom >= window.innerHeight) {
           if (firstInto) {
-            firstInto = false;
             sticky.style.transitionDuration = "0.2s";
             sticky.style.transform = "translate(0px, 0px)";
             setTimeout(() => {
               sticky.style.transitionDuration = "0.5s";
-            }, 200);
-          }
-          if (firstBack) {
-            firstBack = false;
+              sticky.style.transform = `translate(${top}px, 0px)`;
+              firstInto = false;
+            }, 100);
+          } else if (firstBack) {
             sticky.style.transitionDuration = "0.2s";
             sticky.style.transform = `translate(${
-              sticky.scrollWidth - window.innerWidth
+              window.innerWidth - sticky.scrollWidth
             }px, 0px)`;
             setTimeout(() => {
               sticky.style.transitionDuration = "0.5s";
-            }, 200);
+              sticky.style.transform = `translate(${top}px, 0px)`;
+              firstBack = false;
+            }, 100);
+          } else {
+            sticky.style.transform = `translate(${top}px, 0px)`;
           }
-          sticky.style.transform = `translate(${top}px, 0px)`;
         } else if (bottom < window.innerHeight && bottom > 0) {
           firstBack = true;
-          sticky.style.transform = `translate(-${
-            sticky.scrollWidth - window.innerWidth
+          sticky.style.transform = `translate(${
+            window.innerWidth - sticky.scrollWidth
           }px, ${bottom - window.innerHeight}px)`;
         } else {
           firstBack = true;
