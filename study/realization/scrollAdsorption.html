@@ -106,41 +106,38 @@
   </body>
   <script>
     let lock = false;
-    window.addEventListener(
-      "wheel",
-      function (e) {
-        e.preventDefault();
-        if (lock) return;
-        lock = true;
-        setTimeout(() => {
-          lock = false;
-        }, 1000);
-        if (e.deltaY > 0) {
-          window.scrollTo({
-            left: 0,
-            top:
-              (Math.floor(
-                document.documentElement.scrollTop / window.innerHeight
-              ) +
-                1) *
-              window.innerHeight,
-            behavior: "smooth",
-          });
-        } else {
-          window.scrollTo({
-            left: 0,
-            top:
-              (Math.ceil(
-                document.documentElement.scrollTop / window.innerHeight
-              ) -
-                1) *
-              window.innerHeight,
-            behavior: "smooth",
-          });
-        }
-      },
-      { passive: false }
-    );
+    const wheelHandler = (e) => {
+      e.preventDefault();
+      if (lock) return;
+      lock = true;
+      setTimeout(() => {
+        lock = false;
+      }, 1000);
+      if (e.deltaY > 0) {
+        window.scrollTo({
+          left: 0,
+          top:
+            (Math.floor(
+              document.documentElement.scrollTop / window.innerHeight
+            ) +
+              1) *
+            window.innerHeight,
+          behavior: "smooth",
+        });
+      } else {
+        window.scrollTo({
+          left: 0,
+          top:
+            (Math.ceil(
+              document.documentElement.scrollTop / window.innerHeight
+            ) -
+              1) *
+            window.innerHeight,
+          behavior: "smooth",
+        });
+      }
+    };
+    window.addEventListener("wheel", wheelHandler, { passive: false });
     const jump = document.querySelectorAll(".jump");
     jump.forEach((item, index) => {
       item.addEventListener("click", () => {
@@ -151,6 +148,15 @@
         });
       });
     });
+    window.onresize = function () {
+      window.scrollTo({
+        left: 0,
+        top:
+          Math.round(document.documentElement.scrollTop / window.innerHeight) *
+          window.innerHeight,
+        behavior: "smooth",
+      });
+    };
     // window.addEventListener("scroll", function () {
     //   const scrollTop = document.documentElement.scrollTop;
     //   console.log(scrollTop,performance.now());
