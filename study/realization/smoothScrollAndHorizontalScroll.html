@@ -31,7 +31,6 @@
         flex-direction: column;
         overflow: hidden;
         transition: transform 0.5s cubic-bezier(0.33, 1, 0.33, 1);
-        transform: translate(0px, 100vh);
       }
       .sticky-word {
         flex-shrink: 0;
@@ -121,9 +120,16 @@
           yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
           yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
           yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
-          yyds Rem yyds Rem yyds
-          Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds
-          Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
+          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
+          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
           yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
           yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
           yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
@@ -131,39 +137,36 @@
           yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
           yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
           yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
-          yyds Rem yyds Rem yyds
-          Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds
-          Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
-          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
           yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
-          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
-          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
-          yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem
-          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem
-          yydsRem yyds Rem yyds Rem yyds Rem yyds Rem yyds Rem yydsRem yyds Rem
-          yyds Rem yyds Rem yyds
+          yyds Rem yyds Rem yydsRem yyds Rem yyds Rem yyds Rem yyds
         </p>
       </div>
       <div class="sticky-img">
         <img src="https://kilalabest.cn/profile.jpg" alt="profile" />
       </div>
     </div>
+    <div style="position: fixed; top: 8px; right: 8px">
+      ScrollSpeed: <span id="speed">1</span>
+      <input type="range" min="20" max="200" value="100" id="myRange" />
+    </div>
   </body>
-  <script type="module">
-    import { gsap } from "../../esm/index.js";
+  <script>
     const content = document.getElementById("content");
     const sticky = document.querySelector(".sticky");
     const stickyWapper = document.querySelector(".sticky-wapper");
+    let scrollSpeed = 1;
+    const range = document.getElementById("myRange");
     const init = () => {
       stickyWapper.style.height =
         sticky.scrollWidth - window.innerWidth + window.innerHeight + "px";
-      document.body.style.height = content.scrollHeight + 40 + "px";
-      let firstInto = true;
-      let firstBack = true;
+      document.body.style.height = content.scrollHeight / scrollSpeed + "px";
+      let firstInto = false;
+      let firstBack = false;
 
       const handleScroll = function () {
         const scrollTop =
-          document.documentElement.scrollTop || document.body.scrollTop;
+          (document.documentElement.scrollTop || document.body.scrollTop) *
+          scrollSpeed;
         content.style.transform = `translateY(-${scrollTop}px)`;
         const top = stickyWapper.offsetTop - scrollTop;
         const bottom =
@@ -221,6 +224,12 @@
         destory();
         destory = init();
       };
+      range.addEventListener("input", function () {
+        scrollSpeed = this.value / 100;
+        document.getElementById("speed").innerText = scrollSpeed;
+        destory();
+        destory = init();
+      });
     };
   </script>
 </html>

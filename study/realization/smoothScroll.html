@@ -139,17 +139,21 @@
         <p>end</p>
       </div>
     </div>
+    <div style="position: fixed; top: 8px; right: 8px;">
+      ScrollSpeed: <span id="speed">1</span> <input type="range" min="20" max="200" value="100" id="myRange" />
+    </div>
   </body>
-  <script type="module">
-    import { gsap } from "../../esm/index.js";
+  <script>
     const content = document.getElementById("content");
+    let scrollSpeed = 1;
+    const range = document.getElementById("myRange");
     const init = () => {
-      document.body.style.height = content.scrollHeight + 100 + "px";
+      document.body.style.height = content.scrollHeight / scrollSpeed + 100 + "px";
 
       const handleScroll = function () {
         const scrollTop =
           document.documentElement.scrollTop || document.body.scrollTop;
-        content.style.transform = `translateY(-${scrollTop}px)`;
+        content.style.transform = `translateY(-${scrollTop * scrollSpeed}px)`;
       };
       handleScroll();
 
@@ -165,6 +169,12 @@
         destory();
         destory = init();
       };
+      range.addEventListener("input", function () {
+        scrollSpeed = this.value / 100;
+        document.getElementById("speed").innerText = scrollSpeed;
+        destory();
+        destory = init();
+      });
     };
   </script>
 </html>
