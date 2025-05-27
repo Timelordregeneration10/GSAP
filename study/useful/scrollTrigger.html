@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: green;
+      }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(0, 68, 128);
+      }
+      .beforeScroll {
+        height: 100vh;
+        background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="beforeScroll"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="beforeScroll"></div>
+  </body>
+  <script type="module">
+    import { gsap } from "../../esm/index.js";
+    import { ScrollTrigger } from "../../esm/ScrollTrigger.js";
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from(".box", {
+      scrollTrigger: {
+        trigger: ".box",
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: 0.5,
+      },
+      x: 150,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power4",
+    });
+    gsap.from(".box2", {
+      scrollTrigger: ".box2",
+      y: -100,
+      opacity: 0,
+      rotation: "random(-80, 80)",
+      duration: 0.7,
+      ease: "back",
+      stagger: 0.15,
+    });
+  </script>
+</html>

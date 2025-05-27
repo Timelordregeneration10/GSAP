@@ -17,3 +17,7 @@
     - detail: 阻尼滚动+横向滚动不丝滑？改！直接把transform的改变放在transition变回0.5的定时器里！阻尼滚动不够阻尼？加！右上加个滚动条直接想怎么阻怎么阻！genmin哥提到了滚动吸附？做！observer直接完全实现，先滚轮事件deltaY+scrollTo实现基本功能，再touchEvent移动端适配，然后增加背景也跟着滚动特效，用Object.defineProperty优化逻辑，用初始状态矩阵存储可能状态，再初始化，这样就有一键直达移动端适配背景滚动的滚动吸附了！
     - abstract: 优化阻尼滚动与横向滚动；完成滚动吸附；学习defineProperty
     - tomorrow: yasumi
+- 5.27:
+    - detail: 初尝scrollTrigger与splitText，确定之后的预期：scrollTrigger来实现目前我关于scroll的几乎所有动画，比如视差滚动，横向滚动，原神启动？splitText要做到预设多种初见效果，完全取代framer-motion。然后一边随意使用claude生成lh生日相关的代码时，在一个网站下载到了不错的tardis obj模型，并且claude编写的渲染html还不错，完成了tardis的3D展示网站，于是突发奇想有没有Rem的obj，结果真给我在这个网站搜到了，然后开始研究展示蕾姆obj的网站，踩了不少坑之后终于展示出来了，并且把之前搁置的vrm在线展示也展示出来了，然后回到lh的生日网站，搞3d tardis背景，搞枪击特效，搞代码雨特效和祝福
+    - abstract: 浅尝scrollTrigger和splitText，确定后续预期；完成Rem3D展示网站的obj和vrm部分；制作lh生日快乐网站；制作tardis 3D展示网站
+    - tomorrow: scrollTrigger和splitText预期相关；kilalabest阻尼滚动
